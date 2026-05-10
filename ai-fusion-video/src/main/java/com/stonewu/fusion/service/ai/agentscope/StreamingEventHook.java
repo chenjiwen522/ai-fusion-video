@@ -88,6 +88,25 @@ public class StreamingEventHook implements Hook {
      */
     private final ConcurrentHashMap<String, Agent> activeAgents = new ConcurrentHashMap<>();
 
+    /**
+     * 活跃工具调用：toolCallId → 工具上下文（toolName/agentName/parentCallId）
+     * 用于在 Agent 调用结束时，对还没收到 PostActingEvent 的工具发送补偿性 TOOL_FINISHED 事件，
+     * 避免前端 UI 停留在「调用中」状态。
+     */
+    private final ConcurrentHashMap<String, ActiveToolCall> activeToolCalls = new ConcurrentHashMap<>();
+
+    /** 活跃工具调用上下文 */
+    private static class ActiveToolCall {
+        final String toolName;
+        final String agentName;
+        final String parentCallId;
+        ActiveToolCall(String toolName, String agentName, String parentCallId) {
+            this.toolName = toolName;
+            this.agentName = agentName;
+            this.parentCallId = parentCallId;
+        }
+    }
+
     public StreamingEventHook(Sinks.Many<AiChatStreamRespVO> eventSink,
             String conversationId,
             String messageId,
@@ -228,6 +247,9 @@ public class StreamingEventHook implements Hook {
             log.debug("[StreamingEventHook] 子Agent调用入队: toolName={}, callId={}", toolName, toolCallId);
         }
 
+        // 记录到活跃集合，供 Agent 结束时兜底发送 TOOL_FINISHED
+        activeToolCalls.put(toolCallId, new ActiveToolCall(toolName, agentName, parentCallId));
+
         emitEvent(new AiChatStreamRespVO()
                 .setMessageId(messageId)
                 .setConversationId(conversationId)
@@ -265,6 +287,9 @@ public class StreamingEventHook implements Hook {
         log.info("[StreamingEventHook] 工具调用完成: agent={}, tool={}, status={}",
                 agentName, toolName, toolStatus);
 
+        // 正常结束，移出活跃集合
+        activeToolCalls.remove(toolCallId);
+
         emitEvent(new AiChatStreamRespVO()
                 .setMessageId(messageId)
                 .setConversationId(conversationId)
@@ -276,6 +301,40 @@ public class StreamingEventHook implements Hook {
                 .setParentToolCallId(parentCallId)
                 .setAgentName(isSubAgent(agentName) ? agentName : null)
                 .setFinished(false));
+    }
+
+    /**
+     * 兜底：对所有还在「调用中」的工具发送一条 TOOL_FINISHED(status=error) 事件。
+     * <p>
+     * 在 Agent 整体结束（DONE/ERROR/CANCEL）但部分工具调用没有正常 PostActingEvent 时调用，
+     * 避免前端 UI 一直显示「调用中」。
+     *
+     * @param reasonText 用作 toolResult 的解释性文本，如「任务超时」「会话已结束」
+     */
+    public void flushPendingToolFinishedEvents(String reasonText) {
+        if (activeToolCalls.isEmpty()) {
+            return;
+        }
+        log.warn("[StreamingEventHook] 兜底：会话结束时仍有 {} 个工具未完成，逐一发送 TOOL_FINISHED(error)",
+                activeToolCalls.size());
+        activeToolCalls.forEach((toolCallId, ctx) -> {
+            try {
+                emitEvent(new AiChatStreamRespVO()
+                        .setMessageId(messageId)
+                        .setConversationId(conversationId)
+                        .setOutputType("TOOL_FINISHED")
+                        .setToolCallId(toolCallId)
+                        .setToolName(ctx.toolName)
+                        .setToolResult(reasonText != null ? reasonText : "会话已结束，工具调用未返回")
+                        .setToolStatus("error")
+                        .setParentToolCallId(ctx.parentCallId)
+                        .setAgentName(isSubAgent(ctx.agentName) ? ctx.agentName : null)
+                        .setFinished(false));
+            } catch (Exception e) {
+                log.warn("[StreamingEventHook] flushPending 时异常: callId={}, err={}", toolCallId, e.getMessage());
+            }
+        });
+        activeToolCalls.clear();
     }
 
     /**

@@ -1,0 +1,36 @@
+[
+  {
+    "code": "whisper-1",
+    "name": "Whisper-1",
+    "platform": "openai_compatible",
+    "modelType": 5,
+    "description": "OpenAI Whisper-1 语音识别模型，支持 99 种语言转录与翻译，单文件最大 25MB",
+    "capabilities": ["语音识别", "多语言", "翻译为英文"],
+    "config": {
+      "supportedFormats": ["mp3", "mp4", "mpeg", "mpga", "m4a", "wav", "webm"],
+      "maxFileSizeMB": 25,
+      "supportedLanguages": ["zh", "en", "ja", "ko", "es", "fr", "de", "ru", "pt", "it", "ar"],
+      "defaultLanguage": "zh",
+      "supportTranslate": true,
+      "responseFormats": ["json", "text", "srt", "verbose_json", "vtt"],
+      "defaultResponseFormat": "json"
+    }
+  },
+  {
+    "code": "gpt-4o-transcribe",
+    "name": "GPT-4o Transcribe",
+    "platform": "openai_compatible",
+    "modelType": 5,
+    "description": "OpenAI GPT-4o 系列语音转写模型，识别精度优于 Whisper-1，支持多语言并保留标点",
+    "capabilities": ["语音识别", "多语言", "高精度"],
+    "config": {
+      "supportedFormats": ["mp3", "mp4", "mpeg", "mpga", "m4a", "wav", "webm"],
+      "maxFileSizeMB": 25,
+      "supportedLanguages": ["zh", "en", "ja", "ko", "es", "fr", "de", "ru", "pt", "it"],
+      "defaultLanguage": "zh",
+      "supportTranslate": false,
+      "responseFormats": ["json", "text"],
+      "defaultResponseFormat": "json"
+    }
+  }
+]

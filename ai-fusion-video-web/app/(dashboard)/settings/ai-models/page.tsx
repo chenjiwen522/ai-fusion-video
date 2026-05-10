@@ -129,13 +129,16 @@ function ApiConfigDialog({ open, onOpenChange, editingConfig, onSaved }: ApiConf
       };
       if (editingConfig) {
         await apiConfigApi.update(payload);
+        toast.success("API 配置已更新");
       } else {
         await apiConfigApi.create(payload);
+        toast.success("API 配置已创建");
       }
       onSaved();
       onOpenChange(false);
     } catch (err) {
       console.error("保存 API 配置失败:", err);
+      toast.error(err instanceof Error ? err.message : "保存 API 配置失败");
     } finally {
       setSaving(false);
     }
@@ -2163,10 +2166,12 @@ function AiModelDialog({ open, onOpenChange, editingModel, apiConfigs, defaultAp
           config: normalizedConfig,
         });
       }
+      toast.success(editingModel ? "AI 模型已更新" : "AI 模型已创建");
       onSaved();
       onOpenChange(false);
     } catch (err) {
       console.error("保存 AI 模型失败:", err);
+      toast.error(err instanceof Error ? err.message : "保存 AI 模型失败");
     } finally {
       setSaving(false);
     }

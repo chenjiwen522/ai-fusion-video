@@ -1,0 +1,36 @@
+[
+  {
+    "code": "gpt-4o-mini-tts",
+    "name": "GPT-4o Mini TTS",
+    "platform": "openai_compatible",
+    "modelType": 4,
+    "description": "OpenAI 新一代轻量 TTS 模型，支持多语言自然语音合成，可指定 voice、speed 与 instructions",
+    "capabilities": ["语音合成", "多语言", "情感控制"],
+    "config": {
+      "defaultVoice": "alloy",
+      "supportedVoices": ["alloy", "ash", "ballad", "coral", "echo", "fable", "onyx", "nova", "sage", "shimmer", "verse"],
+      "supportedFormats": ["mp3", "opus", "aac", "flac", "wav", "pcm"],
+      "defaultFormat": "mp3",
+      "defaultSpeed": 1.0,
+      "minSpeed": 0.25,
+      "maxSpeed": 4.0
+    }
+  },
+  {
+    "code": "tts-1-hd",
+    "name": "TTS-1 HD",
+    "platform": "openai_compatible",
+    "modelType": 4,
+    "description": "OpenAI 经典高清 TTS 模型，音质优于 tts-1，适合配音与有声内容生成",
+    "capabilities": ["语音合成", "高清音质"],
+    "config": {
+      "defaultVoice": "alloy",
+      "supportedVoices": ["alloy", "echo", "fable", "onyx", "nova", "shimmer"],
+      "supportedFormats": ["mp3", "opus", "aac", "flac", "wav", "pcm"],
+      "defaultFormat": "mp3",
+      "defaultSpeed": 1.0,
+      "minSpeed": 0.25,
+      "maxSpeed": 4.0
+    }
+  }
+]

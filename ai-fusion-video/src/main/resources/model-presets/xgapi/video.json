@@ -1,0 +1,121 @@
+[
+  {
+    "code": "grok-video-3-10s",
+    "name": "Grok Video 3 (10s)",
+    "platform": "xgapi",
+    "modelType": 3,
+    "description": "xAI Grok 最新视频生成模型，固定 10 秒，支持 16:9 / 9:16 / 1:1 比例",
+    "capabilities": ["文生视频", "图生视频"],
+    "config": {
+      "supportedAspectRatios": ["16:9", "9:16", "1:1"],
+      "supportedResolutions": ["720p", "1080p"],
+      "minDuration": 10,
+      "maxDuration": 10,
+      "defaultDuration": 10,
+      "defaultResolution": "1080p",
+      "defaultAspectRatio": "16:9"
+    }
+  },
+  {
+    "code": "sora-2",
+    "name": "Sora 2",
+    "platform": "xgapi",
+    "modelType": 3,
+    "description": "OpenAI Sora 2 文生/图生视频，物理精准、镜头连贯，xgapi 走 /v1/videos 异步接口",
+    "capabilities": ["文生视频", "图生视频", "高保真"],
+    "config": {
+      "supportedAspectRatios": ["16:9", "9:16", "1:1"],
+      "supportedResolutions": ["720p", "1080p"],
+      "minDuration": 4,
+      "maxDuration": 12,
+      "defaultDuration": 8,
+      "defaultResolution": "1080p",
+      "defaultAspectRatio": "16:9"
+    }
+  },
+  {
+    "code": "sora-2-12s",
+    "name": "Sora 2 (12s)",
+    "platform": "xgapi",
+    "modelType": 3,
+    "description": "Sora 2 固定 12 秒长视频版本",
+    "capabilities": ["文生视频", "长时长"],
+    "config": {
+      "supportedAspectRatios": ["16:9", "9:16", "1:1"],
+      "supportedResolutions": ["720p", "1080p"],
+      "minDuration": 12,
+      "maxDuration": 12,
+      "defaultDuration": 12,
+      "defaultResolution": "1080p",
+      "defaultAspectRatio": "16:9"
+    }
+  },
+  {
+    "code": "veo-3.1",
+    "name": "Veo 3.1",
+    "platform": "xgapi",
+    "modelType": 3,
+    "description": "Google Veo 3.1 高级视频模型，支持视频自动配套音频生成，性价比高",
+    "capabilities": ["文生视频", "图生视频", "音频生成"],
+    "config": {
+      "supportedAspectRatios": ["16:9", "9:16"],
+      "supportedResolutions": ["720p", "1080p"],
+      "minDuration": 4,
+      "maxDuration": 8,
+      "defaultDuration": 8,
+      "defaultResolution": "1080p",
+      "defaultAspectRatio": "16:9"
+    }
+  },
+  {
+    "code": "veo3.1-lite",
+    "name": "Veo 3.1 Lite",
+    "platform": "xgapi",
+    "modelType": 3,
+    "description": "Veo 3.1 Lite 模式，支持视频自动配套音频生成，速度更快价格更低",
+    "capabilities": ["文生视频", "图生视频", "音频生成", "高性价比"],
+    "config": {
+      "supportedAspectRatios": ["16:9", "9:16"],
+      "supportedResolutions": ["720p", "1080p"],
+      "minDuration": 4,
+      "maxDuration": 8,
+      "defaultDuration": 8,
+      "defaultResolution": "1080p",
+      "defaultAspectRatio": "16:9"
+    }
+  },
+  {
+    "code": "jimeng-video-3.5-pro",
+    "name": "Jimeng Video 3.5 Pro",
+    "platform": "xgapi",
+    "modelType": 3,
+    "description": "字节即梦 / Seedance 1.5 Pro 升级版，支持自定义秒数，画质强",
+    "capabilities": ["文生视频", "图生视频", "可变时长"],
+    "config": {
+      "supportedAspectRatios": ["16:9", "9:16", "1:1", "21:9", "4:3", "3:4"],
+      "supportedResolutions": ["480p", "720p", "1080p"],
+      "minDuration": 4,
+      "maxDuration": 15,
+      "defaultDuration": 5,
+      "defaultResolution": "1080p",
+      "defaultAspectRatio": "16:9"
+    }
+  },
+  {
+    "code": "sdance2-fast",
+    "name": "Seedance 2.0 Fast",
+    "platform": "xgapi",
+    "modelType": 3,
+    "description": "Seedance 2.0 全球最强视频模型，支持自定义秒数，新一代速度优化版",
+    "capabilities": ["文生视频", "图生视频", "可变时长", "高画质"],
+    "config": {
+      "supportedAspectRatios": ["16:9", "9:16", "1:1", "21:9", "4:3", "3:4"],
+      "supportedResolutions": ["480p", "720p", "1080p"],
+      "minDuration": 5,
+      "maxDuration": 15,
+      "defaultDuration": 5,
+      "defaultResolution": "1080p",
+      "defaultAspectRatio": "16:9"
+    }
+  }
+]

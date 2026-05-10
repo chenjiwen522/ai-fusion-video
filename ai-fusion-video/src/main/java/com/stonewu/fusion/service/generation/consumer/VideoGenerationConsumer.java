@@ -133,9 +133,10 @@ public class VideoGenerationConsumer {
             }
         }
 
-        // 超时：标记任务失败
-        videoGenerationService.updateStatus(task.getId(), 3, "同步等待超时");
-        throw new RuntimeException("生视频任务排队超时（等待 " + (timeoutMs / 1000) + " 秒），当前任务较多，请稍后重试");
+        // 同步等待超时：不再标记任务失败，让后台策略继续轮询直到完成
+        // 任务在后台仍可能成功，可在「任务记录」里查看最终结果
+        log.warn("[VideoConsumer] 同步等待超时但任务仍在后台运行: taskId={}, waited={}s", taskId, timeoutMs / 1000);
+        throw new RuntimeException("生视频任务等待超过 " + (timeoutMs / 1000) + " 秒未完成，已转为后台生成。请稍后到「任务记录」查看结果");
     }
 
     @Scheduled(fixedDelay = 5000)

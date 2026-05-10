@@ -1,0 +1,36 @@
+[
+  {
+    "code": "sora-2",
+    "name": "Sora 2",
+    "platform": "openai_compatible",
+    "modelType": 3,
+    "description": "OpenAI Sora 2 文生视频模型，支持 4-12 秒高质量视频生成，多镜头连贯叙事",
+    "capabilities": ["文生视频", "图生视频", "高保真"],
+    "config": {
+      "supportedAspectRatios": ["16:9", "9:16", "1:1"],
+      "supportedResolutions": ["720p", "1080p"],
+      "minDuration": 4,
+      "maxDuration": 12,
+      "defaultDuration": 8,
+      "defaultResolution": "1080p",
+      "defaultAspectRatio": "16:9"
+    }
+  },
+  {
+    "code": "sora-2-pro",
+    "name": "Sora 2 Pro",
+    "platform": "openai_compatible",
+    "modelType": 3,
+    "description": "OpenAI Sora 2 Pro 专业级视频生成模型，画质与镜头语言显著优于标准版，适合商用级内容",
+    "capabilities": ["文生视频", "图生视频", "高分辨率", "电影级画面"],
+    "config": {
+      "supportedAspectRatios": ["16:9", "9:16", "1:1", "21:9"],
+      "supportedResolutions": ["1080p", "2K"],
+      "minDuration": 4,
+      "maxDuration": 20,
+      "defaultDuration": 10,
+      "defaultResolution": "1080p",
+      "defaultAspectRatio": "16:9"
+    }
+  }
+]

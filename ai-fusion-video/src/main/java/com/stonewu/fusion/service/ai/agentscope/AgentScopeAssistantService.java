@@ -317,6 +317,8 @@ public class AgentScopeAssistantService {
                     Disposable agentDisposable = agent.call(userMsg)
                         .doOnSuccess(response -> {
                         terminalStatus.compareAndSet("running", "completed");
+                        // 兜底：会话正常结束时，对仍未返回的工具发送 TOOL_FINISHED(error)，避免前端「调用中」卡死
+                        try { streamingHook.flushPendingToolFinishedEvents("会话已结束，工具调用未在限定时间内完成"); } catch (Exception ignored) {}
                         // 发送 DONE 事件（不再在此保存 assistant 消息，改为在事件流中根据累积文本保存）
                         eventSink.tryEmitNext(new AiChatStreamRespVO()
                             .setMessageId(messageId)
@@ -328,6 +330,8 @@ public class AgentScopeAssistantService {
                         .doOnError(e -> {
                         terminalStatus.set("failed");
                         log.error("[AgentScope:stream] Agent 调用出错", e);
+                        // 兜底：报错时也清掉所有「调用中」工具
+                        try { streamingHook.flushPendingToolFinishedEvents("会话异常结束，工具调用被中断: " + (e.getMessage() != null ? e.getMessage() : "unknown")); } catch (Exception ignored) {}
                         eventSink.tryEmitNext(new AiChatStreamRespVO()
                             .setMessageId(messageId)
                             .setConversationId(conversationId)
@@ -710,7 +714,7 @@ public class AgentScopeAssistantService {
         Toolkit toolkit = new Toolkit(ToolkitConfig.builder()
                 .parallel(true) // 并行执行多工具
                 .executionConfig(ExecutionConfig.builder()
-                        .timeout(Duration.ofMinutes(20))
+                        .timeout(Duration.ofMinutes(45))
                         .build())
                 .build());
 
@@ -769,7 +773,7 @@ public class AgentScopeAssistantService {
                     subToolkit = new Toolkit(ToolkitConfig.builder()
                             .parallel(true)
                             .executionConfig(ExecutionConfig.builder()
-                                    .timeout(Duration.ofMinutes(20))
+                                    .timeout(Duration.ofMinutes(45))
                                     .build())
                             .build());
                     for (ToolExecutor subTool : subTools) {

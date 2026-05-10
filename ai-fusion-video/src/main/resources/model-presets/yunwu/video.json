@@ -1,0 +1,55 @@
+[
+  {
+    "code": "grok-videos",
+    "name": "Grok Videos (云雾)",
+    "platform": "yunwu",
+    "modelType": 3,
+    "description": "云雾 API 上的 xAI Grok 视频生成模型，时长仅支持 6 秒或 10 秒，size 必须传 16:9 / 9:16 / WxH",
+    "capabilities": ["文生视频"],
+    "config": {
+      "supportedAspectRatios": ["16:9", "9:16"],
+      "supportedResolutions": ["720p", "1080p"],
+      "minDuration": 6,
+      "maxDuration": 10,
+      "defaultDuration": 10,
+      "defaultResolution": "1080p",
+      "defaultAspectRatio": "16:9",
+      "supportReferenceImages": false,
+      "supportFirstFrame": false
+    }
+  },
+  {
+    "code": "sora-2",
+    "name": "Sora 2 (云雾)",
+    "platform": "yunwu",
+    "modelType": 3,
+    "description": "云雾 API 上的 OpenAI Sora 2，物理精准、镜头连贯，走 /v1/videos 异步接口",
+    "capabilities": ["文生视频", "图生视频", "高保真"],
+    "config": {
+      "supportedAspectRatios": ["16:9", "9:16", "1:1"],
+      "supportedResolutions": ["720p", "1080p"],
+      "minDuration": 4,
+      "maxDuration": 12,
+      "defaultDuration": 8,
+      "defaultResolution": "1080p",
+      "defaultAspectRatio": "16:9"
+    }
+  },
+  {
+    "code": "veo-3.1",
+    "name": "Veo 3.1 (云雾)",
+    "platform": "yunwu",
+    "modelType": 3,
+    "description": "云雾 API 上的 Google Veo 3.1，支持视频自动配套音频生成",
+    "capabilities": ["文生视频", "图生视频", "音频生成"],
+    "config": {
+      "supportedAspectRatios": ["16:9", "9:16"],
+      "supportedResolutions": ["720p", "1080p"],
+      "minDuration": 4,
+      "maxDuration": 8,
+      "defaultDuration": 8,
+      "defaultResolution": "1080p",
+      "defaultAspectRatio": "16:9"
+    }
+  }
+]

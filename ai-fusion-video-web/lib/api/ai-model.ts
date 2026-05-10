@@ -166,6 +166,8 @@ export const PLATFORM_OPTIONS = [
   { value: "dashscope", label: "阿里 DashScope", description: "阿里云百炼 / DashScope（通义千问、万相、Qwen-Image）" },
   { value: "anthropic", label: "Anthropic", description: "Claude 系列模型" },
   { value: "ollama", label: "Ollama", description: "本地部署的开源模型" },
+  { value: "xgapi", label: "星光API", description: "xgapi.top 聚合网关，支持 grok-video / sora-2 / veo-3.1 / jimeng-video / sdance2 等视频模型" },
+  { value: "yunwu", label: "云雾API", description: "yunwu (云雾API) 聚合网关 [new-api 协议] - 支持 grok-videos / sora-2 / veo-3.1 等视频与对话模型，时长建议 6 或 10 秒" },
 ] as const;
 
 /** 模型类型选项 */
@@ -202,6 +204,8 @@ export const PLATFORM_LABELS: Record<string, string> = {
   dashscope: "DashScope",
   anthropic: "Anthropic",
   ollama: "Ollama",
+  xgapi: "星光API",
+  yunwu: "云雾API",
 };
 
 // ========== API ==========

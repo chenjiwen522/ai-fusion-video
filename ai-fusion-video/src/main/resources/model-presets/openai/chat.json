@@ -1,0 +1,30 @@
+[
+  {
+    "code": "gpt-4o",
+    "name": "GPT-4o",
+    "platform": "openai_compatible",
+    "modelType": 1,
+    "description": "OpenAI 旗舰多模态对话模型，支持文本、图像与函数调用，适合通用 AI 助手与剧本创作",
+    "capabilities": ["对话", "视觉理解", "函数调用", "JSON 输出"],
+    "config": {
+      "temperature": 0.7,
+      "topP": 1,
+      "maxTokens": 16384,
+      "contextWindow": 128000
+    }
+  },
+  {
+    "code": "claude-sonnet-4-5",
+    "name": "Claude Sonnet 4.5",
+    "platform": "openai_compatible",
+    "modelType": 1,
+    "description": "Anthropic Claude Sonnet 4.5，强推理与长上下文（200K），通过 OpenAI 兼容接口接入",
+    "capabilities": ["对话", "长上下文", "推理", "代码"],
+    "config": {
+      "temperature": 0.7,
+      "topP": 1,
+      "maxTokens": 8192,
+      "contextWindow": 200000
+    }
+  }
+]

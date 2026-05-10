@@ -36,6 +36,8 @@ export const platformIconColors: Record<string, { color: string; bg: string }> =
   dashscope: { color: "text-orange-400", bg: "bg-orange-500/10" },
   anthropic: { color: "text-amber-400", bg: "bg-amber-500/10" },
   ollama: { color: "text-violet-400", bg: "bg-violet-500/10" },
+  xgapi: { color: "text-pink-400", bg: "bg-pink-500/10" },
+  yunwu: { color: "text-indigo-400", bg: "bg-indigo-500/10" },
 };
 
 // ---------- 密钥脱敏 ----------
@@ -62,6 +64,8 @@ export function getPlatformFields(platform: string): PlatformField[] {
   switch (platform) {
     case "openai_compatible":
     case "volcengine":
+    case "xgapi":
+    case "yunwu":
       return [
         { key: "apiUrl", label: "API 地址", placeholder: "https://api.openai.com（只填根域名）", type: "text" },
         { key: "apiKey", label: "API 密钥", placeholder: "sk-...", type: "password", required: true },

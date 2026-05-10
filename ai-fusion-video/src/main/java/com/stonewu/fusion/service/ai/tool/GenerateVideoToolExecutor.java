@@ -37,7 +37,7 @@ public class GenerateVideoToolExecutor implements ToolExecutor {
     private static final int MODEL_TYPE_VIDEO = 3;
 
     /** 同步等待超时时间（10 分钟，视频生成耗时较长） */
-    private static final long WAIT_TIMEOUT_MS = 10 * 60 * 1000L;
+    private static final long WAIT_TIMEOUT_MS = 30 * 60 * 1000L;
 
     private final AiModelService aiModelService;
     private final VideoGenerationService videoGenerationService;
